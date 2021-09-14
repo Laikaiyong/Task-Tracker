@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <Button
       v-show="homePage"
-      @btn-Click="$emit('toggle-add-task')"
+      @btn-click="$emit('toggle-add-task')"
       :text="showAddTask ? 'Close' : 'Add Task'"
       :color="showAddTask ? 'red' : 'green'"
     />
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     homePage() {
-      if (this.$router.path === "/") {
+      if (this.$route.path === "/") {
         return true;
       } else {
         return false;

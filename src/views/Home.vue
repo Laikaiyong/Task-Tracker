@@ -10,7 +10,6 @@
 <script>
 import Tasks from "../components/Tasks";
 import AddTask from "../components/AddTask";
-
 export default {
   name: "Home",
   props: {
@@ -30,7 +29,7 @@ export default {
       const res = await fetch("api/tasks", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-type": "application/json",
         },
         body: JSON.stringify(task),
       });
@@ -40,19 +39,19 @@ export default {
       this.tasks = [...this.tasks, data];
     },
     async deleteTask(id) {
-      if (confirm("Are you sure you want to delete this task?")) {
+      if (confirm("Are you sure?")) {
         const res = await fetch(`api/tasks/${id}`, {
           method: "DELETE",
         });
 
-        res / status === 200
+        res.status === 200
           ? (this.tasks = this.tasks.filter((task) => task.id !== id))
-          : alert("Error");
+          : alert("Error deleting task");
       }
     },
     async toggleReminder(id) {
-      const taskToggle = await this.fetchTask(id);
-      const updTask = { ...taskToggle, reminder: !taskToggle.reminder };
+      const taskToToggle = await this.fetchTask(id);
+      const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
 
       const res = await fetch(`api/tasks/${id}`, {
         method: "PUT",
@@ -61,6 +60,7 @@ export default {
         },
         body: JSON.stringify(updTask),
       });
+
       const data = await res.json();
 
       this.tasks = this.tasks.map((task) =>
@@ -87,6 +87,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
